@@ -1,0 +1,41 @@
+header {
+  background-color: #970747;
+  font-style: normal;
+}
+body{
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  background-color:#f9ce90;
+}
+.par {
+  
+  background-image: url("/assets/images_the_district/image_parallax.jpg");
+  background-attachment:fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+.cadre{
+  background-color:#f9ce90;
+  
+}
+
+#bandeau { 
+  background-color: #970747;
+}
+
+.cat {
+  transition-duration: 0.5s;
+}
+
+.cat:hover {
+  transform: scale(1.1);
+}
+
+h1 {
+  color: #970747
+}
+.img_min{ 
+  width: 50px;
+  height: auto;
+}
