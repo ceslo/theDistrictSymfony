@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Categorie;
+use App\Entity\Plat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,6 +21,24 @@ class CategorieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Categorie::class);
     }
+    public function getCategorieByPopularity()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query= $this->createQueryBuilder('categorie');
+        $query
+            -> select('categorie , SUM(details.quantite) AS quantiteTotale') 
+            ->from ('App\Entity\Categorie', 'categorie')
+            ->join('App\Entity\Plat', 'plat', 'categorie.id=plat.categorie_id')
+            ->join ('App\Entity\Details', 'details', 'details.plat_id=plat.id')
+            ->groupBy('categorie.id')          
+            ->orderBy('quantiteTotale')
+            ->setMaxResults(6)
+            ->getQuery();
+
+            $categories= $query->getResult();
+            return $categories;
+  }
 
     //    /**
     //     * @return Categorie[] Returns an array of Categorie objects
