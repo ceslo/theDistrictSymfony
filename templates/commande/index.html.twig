@@ -20,9 +20,9 @@
               </div>
               <div class="col-7 col-sm-8">
                 <div class="card-body">
-                  <p class="card-title fs-4"><?=$plat['libelle']?></p>
-                  <p class="card-text small"><?=$plat['description']?></p>
-                  <p class="card-text small">Prix:<?=$plat['prix']?>€</p>
+                  <p class="card-title fs-4">{{plat.libelle}}</p>
+                  <p class="card-text small">{{plat.descrption}}</p>
+                  <p class="card-text small">Prix:{{plat.prix}}€</p>
                   <div class="row">
                   <label class="col text-end " for="quantite">Quantité</label>
                   <input class="form-control col bg-secondary container-fluid" type="number" min="1" name="quantite" value="1" step="1"/>
