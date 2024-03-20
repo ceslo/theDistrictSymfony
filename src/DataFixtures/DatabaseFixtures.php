@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Categorie;
 use App\Entity\Commande;
+use App\Entity\Detail;
 use App\Entity\Plat;
 use App\Entity\Utilisateur;
 use App\Repository\CategorieRepository;
@@ -114,8 +115,46 @@ class DatabaseFixtures extends Fixture
         $manager->persist($commande3);
 
         $manager->flush();
+        
+          // Détails commande 1
+          // 1 pizza bianca
+        $plats= $manager->getRepository(Plat::class);
+        $plat1C1=$plats->find('5');
+        $detail1= new Detail;
+        $detail1->setQuantite('1');
+        $detail1->setPlat($plat1C1);
+        $detail1->setCommande($commande1);
+        $manager->persist($detail1);
+        
+        // Détails commande 2
+        // 1 cheeseburber (id=10) + 1 tagliatelles au saumon (id=17)
+        $plat1C2=$plats->find('10');
+        $detail2= new Detail;
+        $detail2->setQuantite('1');
+        $detail2->setPlat($plat1C2);
+        $detail2->setCommande($commande2);
+        $manager->persist($detail2);
 
+        $plat2C2=$plats->find('17');
+        $detail3= new Detail;
+        $detail3->setQuantite('1');
+        $detail3->setPlat($plat2C2);
+        $detail3->setCommande($commande2);
+        $manager->persist($detail3);
+        
+        // Détails commande 3
+        // 1 district burger (id=4)
+
+        $plat1C3=$plats->find('4');
+        $detail4= new Detail;
+        $detail4->setQuantite('1');
+        $detail4->setPlat($plat1C3);
+        $detail4->setCommande($commande3);
+        $manager->persist($detail4);
+
+        $manager->flush();  
 
     }
+
 }
    

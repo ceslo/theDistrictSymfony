@@ -60,42 +60,39 @@
       </section> #}
 
     <!-- Affichage categories populaires -->
-      <section class="d-flex wrap justify-content-center">       
-        <div class="cadre rounded d-flex justify-content-evenly col-xl-10 mt-5 row">
-        <h1 class="text-center row mt-2">Catégories populaires</h1>
-     <?php 
-     $categories= sortCategoriesByPopularity($db); 
-    // var_dump($categories);
-     foreach($categories as $categorie){ ?>
-          <a href="categories.php?id=<?=$categorie['id']?>" class="cat card col-3 col-lg-2 mt-3 mb-5" >
-            <img class="card-img img-fluid" src="assets/images_the_district/category/<?=$categorie['image']?>" alt="<?$categorie['libelle']?>" title="<?=$categorie['libelle']?>"/>
+   <section class="d-flex justify-content-center">
+        
+      <div class="cadre rounded d-flex justify-content-evenly col-xl-10 row mt-5">
+        <h1 class="text-center row mt-2">Catégories Populaires</h1>
+    
+          {% for categorie in popularCategories %}
+          <a href="/plats/{{categorie.id}}" class="cat card rounded col-3 col-lg-2 mt-3 mb-5 g-0" >
+            <img class="card-img" src="Images/category/{{categorie.image}}" alt="{{categorie.libelle}}" title="{{categorie.libelle}}"/>
             <div class="card-img-overlay d-flex align-items-center justify-content-center">
-              <h5 class="mark rounded text-center" style="color=#970747"> <?=$categorie['libelle']?> </h5>
+              <h5 class="mark rounded text-center" style="color=#970747">{{categorie.libelle}}</h5>
             </div> 
           </a>
-      <?php } ?>
-        </div>
-      </section>
+          {% endfor %}
+      </div>
+    </section>
+  
 
 
       <!-- Affichage plats populaires -->
-      <section class="d-flex justify-content-center">
+    <section class="d-flex justify-content-center">
         
       <div class=" cadre rounded d-flex justify-content-evenly col-xl-10 row mt-5">
-      <h1 class="text-center row mt-2">Plats populaires</h1>
-      <?php 
-      $plats= sortMealsByPopularity($db);
-      // var_dump($plats);
-      foreach($plats as $plat){?>
-          <a href="plat_selectionne.php?id=<?=$plat['id_plat']?>" class="cat card rounded col-3 col-lg-2 mt-3 mb-5" >
-            <img class="card-img" src="assets/images_the_district/food/<?=$plat['image']?>" alt="<?$plat['libelle']?>" title="<?=$plat['libelle']?>"/>
+        <h1 class="text-center row mt-2">Plats Populaires</h1>
+    
+          {% for plat in popularMeals %}
+          <a href="#" class="cat cadre card rounded col-3 col-lg-2 mt-3 mb-5 g-0" >
+            <img class="card-img" src="Images/food/{{plat.image}}" alt="{{plat.libelle}}" title="{{plat.libelle}}"/>
             <div class="card-img-overlay d-flex align-items-center justify-content-center">
-              <h5 class="mark rounded text-center" style="color=#970747"> <?=$plat['libelle']?> </h5>
+              <h5 class="mark rounded text-center" style="color=#970747">{{plat.libelle}}</h5>
             </div> 
           </a>
-
-      <?php } ?>
+          {% endfor %}
       </div>
-      </section>
+    </section>
 
 {% endblock %}

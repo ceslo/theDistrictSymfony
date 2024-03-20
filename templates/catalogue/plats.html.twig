@@ -1,5 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Nos plats{% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+
+ <section class="d-flex justify-content-center">
+        <div class="cadre rounded d-flex justify-content-evenly flex-wrap col-xl-10 mt-5">
+        <h1 class="mt-5 text-center text-uppercase" id="titre_page">Les plats</h1>
+        <div class="row d-flex justify-content-evenly mt-5" id="aff_plats">
+         {% for plat in plats %}
+          <div class="card rounded col-10 col-lg-5 position-relative gy-2">
+            <div class="row">
+              <div class="d-flex col-4 align-items-center">
+                <img src="Images/food/{{plat.image}}"class="img-fluid rounded" alt="'{{plat.libelle}}'"/>
+              </div>
+              <div class="col-7 col-sm-8">
+                <div class="card-body">
+                  <p class="card-title fs-4">{{plat.libelle}}</p>
+                  <p class="card-text small">{{plat.description}}</p>
+                  <p class="card-text small">Prix:{{plat.prix}}€</p>
+                  <div class="d-flex justify-content-end my-3">
+                    <a class="btn btn-outline-dark" href="plat_selectionne.php?id={{plat.id}}">Commander</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+         
+        </div>
+        
+        <div>
+          <a class="btn btn-outline-dark m-3 " href="index.php">Précédent</a>
+        </div>
+      </div>
+      </section>
+{% endblock %}

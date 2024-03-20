@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nos catégories de plats{% endblock %}
+{% block body %}
+<!-- Affichage des categories -->
+   <section class="d-flex justify-content-center">
+    <div
+          id="aff_cat"
+          class="cadre rounded d-flex justify-content-evenly flex-wrap col-xl-10 mt-5 px-5">
+      <h1 class="text-center row mt-5">LES CATEGORIES</h1>
+      <div class="row">
+       {% for categorie in categories %}
+       
+        <a href="/plats/{{categorie.id}}" class="cat cadre card rounded col-4 col-lg-2 m-5 g-0" >
+          <img class="card-img img-fluid" src="Images/category/{{categorie.image}}" alt="{{categorie.libelle}}" title="{{categorie.libelle}}"/> 
+          <div class="card-img-overlay d-flex align-items-center justify-content-center"> 
+            <h2 class="mark rounded text-center" style="color: #970747"> {{categorie.libelle}} </h2>
+          </div> 
+        </a> 
+       {% endfor %}
+      </div>
+    </div>
+      </section>
+
+      <div class="m-md-5 p-md-5 m-2 p-2">
+        <a class="btn btn-outline-dark" href="index.php">Précédent</a>
+      </div>
+      {% endblock %}

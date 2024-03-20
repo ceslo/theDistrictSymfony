@@ -134,7 +134,7 @@ class Plat
         return $this->details;
     }
 
-    public function addDetail(detail $detail): static
+    public function addDetail(Detail $detail): static
     {
         if (!$this->details->contains($detail)) {
             $this->details->add($detail);
@@ -144,7 +144,7 @@ class Plat
         return $this;
     }
 
-    public function removeDetail(detail $detail): static
+    public function removeDetail(Detail $detail): static
     {
         if ($this->details->removeElement($detail)) {
             // set the owning side to null (unless already changed)

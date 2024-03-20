@@ -3,9 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Categorie;
+use App\Entity\Detail;
 use App\Entity\Plat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Node\Expr\Cast\Array_;
+use Symfony\Bundle\MakerBundle\Util\ClassDetails;
 
 /**
  * @extends ServiceEntityRepository<Categorie>
@@ -21,23 +24,26 @@ class CategorieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Categorie::class);
     }
-    public function getCategorieByPopularity()
+    
+    public function getPopularCategories()
     {
         $entityManager = $this->getEntityManager();
+        
 
-        $query= $this->createQueryBuilder('categorie');
-        $query
-            -> select('categorie , SUM(details.quantite) AS quantiteTotale') 
-            ->from ('App\Entity\Categorie', 'categorie')
-            ->join('App\Entity\Plat', 'plat', 'categorie.id=plat.categorie_id')
-            ->join ('App\Entity\Details', 'details', 'details.plat_id=plat.id')
-            ->groupBy('categorie.id')          
-            ->orderBy('quantiteTotale')
-            ->setMaxResults(6)
-            ->getQuery();
-
-            $categories= $query->getResult();
-            return $categories;
+        $queryBuilder= $entityManager->createQueryBuilder();
+        $queryBuilder
+            ->select('c') 
+            ->from (Categorie::class, 'c')
+            ->join(Plat::class, 'p')
+            ->join (Detail::class, 'd')
+            ->groupBy('c') 
+            ->addGroupBy('p')         
+            ->orderBy('SUM(d.quantite)','DESC')
+            ->setMaxResults(3);
+            $query=$queryBuilder->getQuery();
+        
+            $popularCat=$query->getResult();
+            return $popularCat;
   }
 
     //    /**

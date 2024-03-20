@@ -20,7 +20,7 @@ class Detail
     private ?Plat $plat = null;
 
     #[ORM\ManyToOne(inversedBy: 'details')]
-    private ?commande $commande = null;
+    private ?Commande $commande = null;
 
     public function getId(): ?int
     {
@@ -51,12 +51,12 @@ class Detail
         return $this;
     }
 
-    public function getCommande(): ?commande
+    public function getCommande(): ?Commande
     {
         return $this->commande;
     }
 
-    public function setCommande(?commande $commande): static
+    public function setCommande(?Commande $commande): static
     {
         $this->commande = $commande;
 

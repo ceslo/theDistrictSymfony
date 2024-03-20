@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos plats par catégorie{% endblock %}
+
+{% block body %}
+ <section class="d-flex justify-content-center position-relative">
+    <div
+          id="aff_cat"
+          class="d-flex justify-content-evenly col-xl-10 row flex-wrap mt-5 position-relative"
+        >
+             
+       {% for plat in plats %}
+        <div class="card cadre rounded col-11 col-lg-5">
+            <div class="row">
+                <div class="d-flex col-4 align-items-center">
+                    <img src="../Images/food/{{plat.image}}" class="img-fluid rounded" alt="{{plat.libelle}}"/>
+                </div>
+                <div class="col-7 col-sm-8">
+                    <div class="card-body">
+                        <p class="card-title fs-4">{{plat.libelle}}</p>
+                        <p class="card-text small">{{plat.description}}</p>
+                        <p class="card-text small">Prix:{{plat.prix}}€</p>
+                            <div class="d-flex justify-content-end my-3">
+                                <a class="btn btn-outline-dark" href="#">Commander</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       {% endfor %}
+        
+        </div>
+      </section>
+
+      {% endblock %}
