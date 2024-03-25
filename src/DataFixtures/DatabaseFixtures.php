@@ -121,7 +121,7 @@ class DatabaseFixtures extends Fixture
         $plats= $manager->getRepository(Plat::class);
         $plat1C1=$plats->find('5');
         $detail1= new Detail;
-        $detail1->setQuantite('1');
+        $detail1->setQuantite('4');
         $detail1->setPlat($plat1C1);
         $detail1->setCommande($commande1);
         $manager->persist($detail1);
@@ -137,7 +137,7 @@ class DatabaseFixtures extends Fixture
 
         $plat2C2=$plats->find('17');
         $detail3= new Detail;
-        $detail3->setQuantite('1');
+        $detail3->setQuantite('6');
         $detail3->setPlat($plat2C2);
         $detail3->setCommande($commande2);
         $manager->persist($detail3);
@@ -147,7 +147,7 @@ class DatabaseFixtures extends Fixture
 
         $plat1C3=$plats->find('4');
         $detail4= new Detail;
-        $detail4->setQuantite('1');
+        $detail4->setQuantite('2');
         $detail4->setPlat($plat1C3);
         $detail4->setCommande($commande3);
         $manager->persist($detail4);

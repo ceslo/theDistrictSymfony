@@ -34,8 +34,8 @@ class CategorieRepository extends ServiceEntityRepository
         $queryBuilder
             ->select('c') 
             ->from (Categorie::class, 'c')
-            ->join(Plat::class, 'p')
-            ->join (Detail::class, 'd')
+            ->join(Plat::class, 'p','WITH', 'p.categorie= c.id')
+            ->join (Detail::class, 'd','WITH', 'p.id = d.plat')
             ->groupBy('c') 
             ->addGroupBy('p')         
             ->orderBy('SUM(d.quantite)','DESC')

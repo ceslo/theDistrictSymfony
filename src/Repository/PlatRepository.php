@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Detail;
 use App\Entity\Plat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,14 +40,30 @@ public function getPlatsByCat($id, EntityManagerInterface $entityManager)
     return $platsByCat;
 }
 
-public function getPopularMeals(entitymanagerInterface $entityManager)
+public function getPopularMeals(EntitymanagerInterface $entityManager)
 {
+   
+// $queryBuilder = $entityManager->createQueryBuilder();
+
+// $queryBuilder
+//     ->select('p, SUM(d.quantite) AS totalQuantite') // Sélectionnez le plat et la somme des quantités
+//     ->from(Plat::class, 'p')
+//     ->join(Detail::class, 'd', 'WITH', 'd.plat = p') // Joignez les détails avec les plats
+//     ->groupBy('p') // Groupez par plat
+//     ->orderBy('totalQuantite', 'DESC') // Triez par la somme des quantités
+//     ->setMaxResults(3);
+
+// $query = $queryBuilder->getQuery();
+// $popularMeals = $query->getResult();
+
+// return $popularMeals;
+
     $queryBuilder=$entityManager->createQueryBuilder();
     
     $queryBuilder
         ->select('p')
         ->from(Plat::class,'p')
-        ->join(Detail::class,'d')
+        ->join(Detail::class,'d', 'WITH', 'p.id = d.plat')
         ->groupBy('p')
         ->orderBy('SUM(d.quantite)','DESC')
         ->setMaxResults(3);
@@ -55,6 +72,21 @@ public function getPopularMeals(entitymanagerInterface $entityManager)
         $popularMeals=$query->getResult();
         return $popularMeals;
 
+}
+function search_bar($keyword, EntityManagerInterface $entityManager)
+{ 
+    $queryBuilder= $entityManager->createQueryBuilder();
+
+    $queryBuilder
+        ->select('p')
+        ->from(Plat::class, 'p')
+        ->where('libelle LIKE :key')
+        ->setparameter('key', '%'.$keyword.'%');
+        $query=$queryBuilder->getQuery();
+        //  where libelle LIKE '%$keyword%' OR description LIKE '%$keyword%'");
+   
+    $result=$query->getResult();
+    return $result;
 }
 
     //    /**

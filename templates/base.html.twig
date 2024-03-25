@@ -28,7 +28,7 @@
 <nav class="navbar navbar-expand-md navbar-dark text-uppercase fs-1">
   <div class="container-fluid">
     <img
-      src="Images/the_district_brand/logo.png"
+      src="{{asset("Images/the_district_brand/logo.png")}}"
       alt="the_district_accueil"
       tittle="the_district"
       class="img-fluid col-2 col-lg-1 navbar-brand"
@@ -60,7 +60,7 @@
 
         {% block body %}{% endblock %}
 
-<footer class="p-5 mt-5 d-flex justify-content-evenly">
+<footer class="sticky-bottom p-5 mt-5 d-flex justify-content-evenly">
   <div>
         <button class="btn btn-primary" href="#">
           <svg
@@ -109,8 +109,8 @@
         </button>
       </div>
       <div>
-        <a class="link m-3" href="mention_legales.php">Mentions Légales</a>
-        <a class="link m-3" href="politique_confidentialite.php">Politique de confidentialité</a>
+        <a class="link m-3 text-white" href="mention_legales.php">Mentions Légales</a>
+        <a class="link m-3 text-white"" href="politique_confidentialite.php">Politique de confidentialité</a>
         
       </div>
     </footer>

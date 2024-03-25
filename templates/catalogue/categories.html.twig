@@ -11,7 +11,7 @@
        {% for categorie in categories %}
        
         <a href="/plats/{{categorie.id}}" class="cat cadre card rounded col-4 col-lg-2 m-5 g-0" >
-          <img class="card-img img-fluid" src="Images/category/{{categorie.image}}" alt="{{categorie.libelle}}" title="{{categorie.libelle}}"/> 
+          <img class="card-img img-fluid" src="{{asset('Images/category/'~ categorie.image)}}" alt="{{categorie.libelle}}" title="{{categorie.libelle}}"/> 
           <div class="card-img-overlay d-flex align-items-center justify-content-center"> 
             <h2 class="mark rounded text-center" style="color: #970747"> {{categorie.libelle}} </h2>
           </div> 

@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use App\Repository\CategorieRepository;
 use App\Repository\PlatRepository;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,22 +22,24 @@ class CatalogueController extends AbstractController
     // }
 
     #[Route('/', name: 'app_catalogue')]
-    public function index( EntityManagerInterface $entity, PlatRepository $platsRepo, CategorieRepository $catRepo ): Response
+    public function index( EntityManagerInterface $entity, PlatRepository $platsRepo, CategorieRepository $catRepo): Response
     {
         $popularCategories=$catRepo-> getPopularCategories();
         $popularMeals=$platsRepo->getPopularMeals($entity);
         // var_dump($popularCategories);
+        // var_dump($popularMeals);
+        //
         return $this->render('catalogue/index.html.twig', [
             'controller_name' => 'CatalogueController',
             'popularCategories'=>$popularCategories,
-            'popularMeals'=>$popularMeals,            
+            'popularMeals'=>$popularMeals,     
         ]);
     }
     #[Route('/plats', name: 'app_plats')]
     public function affichage_plat(PlatRepository $platsRepo): Response
     {
         $plats=$platsRepo->findAll();
-
+       
         return $this->render('catalogue/plats.html.twig', [
             'controller_name' => 'CatalogueController',
             'plats'=> $plats,
@@ -54,8 +55,6 @@ class CatalogueController extends AbstractController
         return $this->render('catalogue/plats_id.html.twig', [
             'controller_name' => 'CatalogueController',
             'plats'=> $plats
-           
-
         ]);
     }
 
