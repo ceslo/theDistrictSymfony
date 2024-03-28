@@ -1,15 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Votre panier{% endblock %}
 
 {% block body %}
-{% for element in items %}
- <section class="mx-3 mt-3">
-        <div class="d-flex justify-content-center">
-          <div class="card rounded col-12 col-lg-8" >
-            <div class="row">
-              <div class="d-flex col-4 align-items-center">
-                <img
+<div class="d-flex justify-content-around">
+  <div class="cadre col col-lg-8">
+        
+        <section>
+            <h1 class="text-center m-2"> Votre panier </h1>
+            {% for element in items %}
+
+        <div class="d-flex my-2 mx-5">
+          <div class="card rounded col-12 col-lg-6 " >
+            <div class="row"> 
+              <div class="d-flex col-4 col-lg-4 align-items-center">
+                <img  
                   src="{{asset('Images/food/'~ element.plat.image)}}"
                   class="img-fluid rounded"
                   alt="{{element.plat.libelle}}"/>
@@ -19,9 +24,10 @@
                   <p class="card-title fs-4">{{element.plat.libelle}}</p>
                   <p class="card-text small">{{element.plat.description}}</p>
                   <p class="card-text small">Prix:{{element.plat.prix}}€</p>
-                  <div class="row">
-                  <label class="col text-end " for="quantite">Quantité</label>
-                  <input class="form-control col bg-secondary container-fluid" type="number" min="1" name="quantite" value="{{element.quantite}}" step="1"/>
+                  <div class="row align-items-center">
+                  <label class="col text-end" for="quantite">Quantité</label>
+                  <input class="form-control col bg-secondary container-fluid" type="number" min="1" name="quantite{{element.plat.id}}" id="quantite{{element.plat.id}}" value="{{element.quantite}}" step="1"/>
+                  <a class="btn btn-danger col" href="{{ path ('app_panier_suppr',{'id':element.plat.id}) }}">Supprimer</a>
                   </div>
                 </div>
               </div>
@@ -29,6 +35,13 @@
           </div>
         </div>
         {% endfor %}
+    </section>
+    <section class="m-5">
+        <p> Total = {{total}}€ </p>
+        <a class="btn btn-outline-dark" href="{{ path ('app_commande') }}">Passer la commande</a>
+    </section>
 
+  </div>
+</div>
 
 {% endblock %}

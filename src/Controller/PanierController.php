@@ -7,51 +7,46 @@ use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PanierController extends AbstractController
 {
     #[Route('/panier', name: 'app_panier')]
-    public function index(SessionInterface $session, PlatRepository $platRepository): Response
+    public function index(PanierService $panierService, PlatRepository $platRepository): Response
     {
-        $panier=$session->get('panier',[]);
-        
-        $panier_details=[];
-        foreach($panier as $id=>$quantity)
-        {
-            $panier_details[]=[
-                'plat'=>$platRepository->find($id),
-                'quantite'=>$quantity,
-            ];
-        } 
-        // dd($panier_details);  
-
+        // dd($total);
+        $panier_details=$panierService->IndexPanier($platRepository);
+        $total=$panierService->totalPanier($panier_details);
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
             'items'=> $panier_details,
+            'total'=>$total,
         ]);
     }
     #[Route('/panier/ajout/{id}', name: 'app_panier_ajout')]
-    public function ajout($id, SessionInterface $session): Response
+    public function ajout($id, PanierService $panierService, Request $request): Response
     {
+        $id=$request->attributes->get('id');
 
+        $panierService-> addToCart($id);
 
-        $panier= $session->get('panier',[]);
-        if(!empty($panier[$id]))
-        {
-            $panier[$id]++;
-        }
-        else{
-            $panier[$id]=1;
-        }
-       
-        $session->set('panier',$panier);
+        // Pour obtenir la route actuelle        
+        $currentRoute = $request->attributes->get('_route');
+        
         // dd($panier);
-        return $this->render('panier/ajout.html.twig', [
-            'controller_name' => 'PanierController',
-            'panier'=>$panier
-        ]);
+        return $this->redirectToRoute('app_panier');
+    }
+
+    #[Route('/panier/remove/{id}', name: 'app_panier_suppr')]
+    public function remove ($id , Request $request, PanierService $panierService): Response
+    {
+        $id=$request->attributes->get('id');
+        $panierService->removeFromCart($id);
+        return $this->redirectToRoute('app_panier');
+
+        //  // Pour obtenir la route actuelle        
+        //  $currentRoute = $request->attributes->get('_route');
+
+        // return $this->redirectToRoute($currentRoute);
     }
 }

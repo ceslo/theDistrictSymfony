@@ -48,6 +48,7 @@ class CatalogueController extends AbstractController
     #[Route('/plats/{categorie_id}', name: 'app_platsByCat{categorie_id}')]
     public function affichage_platByCat(HttpFoundationRequest $request,PlatRepository $platsRepo): Response
     {
+        
         $id=$request->attributes->get('categorie_id');
         $plats=$platsRepo->findBy(['categorie'=>$id]);
         // $plats= $platsRepo->getplatByCat($id);
