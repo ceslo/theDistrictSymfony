@@ -41,7 +41,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER}
-    role_hierachy:
+    role_hierarchy:
             ROLE_CLIENT: ROLE_USER
             ROLE_CHEF: ROLE_CLIENT
             ROLE_ADMIN: ROLE_CHEF
