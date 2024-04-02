@@ -21,9 +21,11 @@ class CommandeController extends AbstractController
     public function index(PanierService $panierService,PlatRepository $platRepo, EntityManagerInterface $entityManager, UtilisateurRepository $UserRepo, MailerInterface $mailer): Response
     {
         $utilisateur= $UserRepo->findOneBy(["email"=>'blabla@gmail.com']);
+        // $utilisateur=$lastUsername = $authenticationUtils->getLastUsername();
         $panier_detail= $panierService->IndexPanier($platRepo);
         $total=$panierService->totalPanier($panier_detail);
         // dd($panier_detail);
+        // if()
         $commande =new Commande;
         $commande->setDateCommande(new DateTime())
                  ->setTotal($total)
@@ -47,7 +49,7 @@ class CommandeController extends AbstractController
         $entityManager->flush();
         $utilisateur_mail= $utilisateur->getEmail();
 
-        $mail= (new Email());
+        $mail= new Email();
         $mail->from('from@thedistrict.com')
          ->to($utilisateur_mail)
          ->Subject('Confimation de votre commande')
