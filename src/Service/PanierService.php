@@ -16,7 +16,7 @@ class PanierService {
         // Je recupère la session
         $session=$this->requestStack->getSession();
 
-        // Je recupère le panier dans la session, sous la forme d'un tableau
+        // Je recupère le panier dans la session, sous la forme d'un tableau.
         $panier=$session->get('panier',[]);
         
         // Je crée un panier avec les détails des plats
