@@ -37,11 +37,11 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('app_panier');
     }
 
-    #[Route('/panier/remove/{id}', name: 'app_panier_suppr')]
-    public function remove ($id , Request $request, PanierService $panierService): Response
+    #[Route('/panier/removeAll/{id}', name: 'app_panier_supprAll')]
+    public function removeAll ($id , Request $request, PanierService $panierService): Response
     {
         $id=$request->attributes->get('id');
-        $panierService->removeFromCart($id);
+        $panierService->removeAllFromCart($id);
         return $this->redirectToRoute('app_panier');
 
         //  // Pour obtenir la route actuelle        
@@ -49,4 +49,19 @@ class PanierController extends AbstractController
 
         // return $this->redirectToRoute($currentRoute);
     }
+
+    #[Route('/panier/removeOne/{id}', name: 'app_panier_supprOne')]
+    public function removeOne ($id , Request $request, PanierService $panierService): Response
+    {
+        $id=$request->attributes->get('id');
+        $panierService->removeOneFromCart($id);
+        return $this->redirectToRoute('app_panier');
+
+        //  // Pour obtenir la route actuelle        
+        //  $currentRoute = $request->attributes->get('_route');
+
+        // return $this->redirectToRoute($currentRoute);
+    }
+
+   
 }

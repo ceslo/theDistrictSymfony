@@ -59,7 +59,7 @@ class PanierService {
               
     }    
     
-    public function removeFromCart($id)
+    public function removeAllFromCart($id)
     {
         $session=$this->requestStack->getSession();
         $panier=$session->get('panier',[]);
@@ -68,6 +68,21 @@ class PanierService {
             unset($panier[$id]);
         }
 
+        $session->set('panier',$panier);
+        
+    }
+    public function removeOneFromCart($id)
+    {        
+        $session=$this->requestStack->getSession();
+        $panier= $session->get('panier',[]);
+        if($panier[$id]>1)
+        {
+            $panier[$id]--;
+        }
+        else{
+            unset($panier[$id]);
+        }
+       
         $session->set('panier',$panier);
         
     }
